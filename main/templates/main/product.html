@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block categories %}
+
+        {% for cat in categories %}
+            <a href="/{{cat.id}}" class="list-group-item">{{ cat.name }}</a>
+        {% endfor %}
+{% endblock %}
+
+{% block content %}
+        {% for product in products %}
+            <div class="card mt-4 {% if forloop.last %}mb-4{% endif %}">
+                <div class="row">
+                    <div class="col-4">
+                        <a href="#"><img id="image" src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}" ></a>
+                    </div>
+                    <div class="col">
+                        <div class="card-block mt-4">
+                            <h4 class="card-title"><a href="/product/{{product.name}}">{{ product.name }}</a></h4>
+                            <h5 class="card-text">{{ product.detail }}</h5>
+                            <p class="card-text">Rs. {{ product.price }}</p>
+                            <a href="{% url 'main:add-to-cart' product.pk %}" name="{{ product.slug }}" class="btn btn-success add_to_cart mb-4">Add to Cart</a>
+                            <br>
+                            <a href="/video">Review Video</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="card mt-5">
+                <div class="card-header">No data available</div>
+            </div>
+        {% endfor %}
+{% endblock %}
+{% for video in video %}
+                <div class="row">
+                {% load embed_video_tags %}
+                <h3>{{ video.name }}</h3>
+                <h3>{% video video.video 'tiny' %}</h3>
+                {% endfor %}
+                </div>
+

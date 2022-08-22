@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block categories %}
+
+        {% for cat in categories %}
+            <a href="/{{cat.id}}" class="list-group-item">{{ cat.name }}</a>
+        {% endfor %}
+{% endblock %}
+
+{% block content %}
+<div class="content">
+<h1 style="font-weight:bolder;">Add Category</h1>
+    <div class="row">
+        <form method="post">
+            {% csrf_token %}
+            <label>Name</label><br>
+            {{form.name}}
+            <br>
+            <br>
+            <button type="submit" class="btn btn-success">Add</button>
+        </form>
+    </div>
+<br>
+    </div>
+{% endblock %}

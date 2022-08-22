@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="eCommerce project sample in django">
+    <title>Mobile Zone</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/static/shop/js/jquery.min.js"></script>
+    <link href="/static/shop/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    #logo{
+    height: 30px;
+    width: 30px;
+    }
+    #image{
+    height: 200px;
+    width: 200px;
+    }
+    #image1{
+    height: 200px;
+    width: 254px;
+    }
+    .content{
+        border-left: 2px solid black;
+        padding-left: 20px;
+    }
+</style>
+
+</head>
+
+<body style="padding-top:70px">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        {% load static %}
+        <a class="navbar-brand" href="/dashboard"><img id="logo" class="d-block img-fluid" src="{% static 'shop/logo.png' %}" alt="Mobile Zone"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/dashboard">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/products">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/api">API</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/dashboard">{{user}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Log Out</a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+    {% block main_content %}
+        <div class="row">
+            <div class="col-lg-3">
+                <h1 class="my-4">Mobile Zone</h1>
+                <div class="list-group">
+                    {% block categories %}
+                    {% for cat in categories %}
+                        <a href="/{{cat.id}}" class="list-group-item">{{ cat.name }}</a>
+                    {% endfor %}
+                    <a href="/add_category" type="button" class="list-group-item list-group-item-success">Add new category</a>
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="col-lg-9">
+                {% block content %}
+                <div class="row">
+                        <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100" >
+                        <img class="card-img-top" id="image1" src="{% static 'shop/phone1.jpg' %}" >
+                        <div class="card-body">
+                        <h4 class="card-title">
+                        <a href="/add_product" type="button" class="list-group-item list-group-item-success">Add new product</a>
+                        </h4>
+                        <h5></h5>
+                        </div>
+                        <div class="card-footer">
+                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                        </div>
+                        </div>
+                        </div>
+                    {% for product in products %}
+                        <div class="col-lg-4 col-md-6 mb-4" id="myTable">
+                        <div class="card h-100" >
+                        <img class="card-img-top" id="image" src="{{ product.image.url }}" >
+                        <div class="card-body">
+                        <h4 class="card-title">
+                        <a href=" /product/{{product.name}}">{{ product.name }}</a>
+                        </h4>
+                        <h5>Rs. {{ product.price }}</h5>
+                        </div>
+                        <div class="card-footer">
+                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                        </div>
+                        </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% endblock %}
+            </div>
+        </div>
+    {% endblock %}
+    </div>
+    <!-- Footer -->
+    <footer class="py-5 bg-light">
+        <div class="container text-muted">
+            <p class="m-0 text-center">Have a happy {% now "Y" %}</p>
+        </div>
+    </footer>
+
+    <!-- JavaScripts -->
+    <script src="/static/shop/js/bootstrap.min.js"></script>
+    <script src="/static/shop/js/bootstrap.bundle.min.js"></script>
+    {% block jscode %}{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block categories %}
+
+        {% for cat in categories %}
+            <a href="/{{cat.id}}" class="list-group-item">{{ cat.name }}</a>
+        {% endfor %}
+{% endblock %}
+
+{% block content %}
+        {% for video in video %}
+                <div class="row">
+                    <div class="col-4">
+                        <h3>{{ video.name }}</h3>
+                         {% load embed_video_tags %}
+                    <h3>{% video video.video 'tiny' %}</h3>
+                    </div>
+                </div>
+        {% endfor %}
+{% endblock %}
+
+
